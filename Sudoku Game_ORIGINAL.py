@@ -1706,8 +1706,8 @@ try:
                                                   # and it hasn't failed more
                                                   # than 3 times
                 try:
-                    Single_Cell = self.Check_Single_Item(
-                    )  # Works out if the number has to be placed in a single location
+                    # Works out if the number has to be placed in a single location
+                    Single_Cell = self.Check_Single_Item()
 
                     if Single_Cell == None:  # If it doesn't have to be placed in a single location
 
