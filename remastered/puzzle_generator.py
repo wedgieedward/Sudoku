@@ -8,27 +8,44 @@ class Puzzle(object):
 	def __init__(self):
 		self._complete = False
 		self.avaliable_cells = []
+		self.puzzle_attempts = 5
 
 	def process(self):
 		"""
 		Creates and returns the generated puzzle for this object
 		"""
 		start_time = time.clock()
+		retry_attempts = 0
+		while self._complete == False or retry_attempts > self.puzzle_attempts:
+			success = self.process_puzzle_attempt()
+			if not success:
+				self.reset_puzzle_attempt()
+		
+
+	def process_puzzle_attempt(self):
+		"""
+		Will try and produce a complete puzzle
+		"""
 		success_counter = 0
-		while self._complete == False:
+		for number in range(9):
 			value_to_insert = self.get_unused_number()
 			insert_success = self.process_current_number(value_to_insert)
 			if insert_success:
 				success_counter += 1
 
-			if success_counter == 9:
-				self._complete = True
+		if success_counter == 9:
+			return True
+		else:
+			return False
 
 	def process_current_number(self, number):
 		"""
 		Given a number, will try to randomly insert the number into the grid
 		"""
 		return True
+
+	def reset_puzzle_attempt(self):
+		pass
 
 
 	def get_available_cells(self):
@@ -46,12 +63,6 @@ class Puzzle(object):
 
 def Build(self):
 
-                self.Complete_Current_Number()
-                                             # Tries to put the number into the
-                                             # grid 9 times
-                temp_Counter += 1
-                if temp_Counter == 9:  # If all 9 numbers have been fully inputted into correct positions
-                    self.Complete_Grid = True  # The Grid Is Complete
                 if self.Reset_Build == True:  # If for what ever reason the grid needs to be reset all variables reset
                     self.Rows = [self.Blank_List(
                     ), self.Blank_List(
